@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>HUZEE STORE — Pakistan's Online Shopping Store</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231a1200'/%3E%3Crect x='2' y='2' width='60' height='60' rx='12' fill='none' stroke='%23c9a84c' stroke-width='1.5'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Georgia%2C serif' font-size='28' font-weight='700' fill='%23c9a84c'%3EHS%3C/text%3E%3C/svg%3E" type="image/svg+xml">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <!-- PWA -->
@@ -1517,6 +1518,218 @@
     .mnav-install-btn { background:linear-gradient(135deg,#c9a84c,#e8c97a); color:#0d0a00; border:none; border-radius:12px; padding:12px 18px; font-size:0.85rem; font-weight:700; font-family:'Poppins',sans-serif; letter-spacing:0.05em; cursor:pointer; display:flex; align-items:center; gap:10px; width:100%; margin-top:4px; transition:all 0.25s; box-shadow:0 4px 18px rgba(201,168,76,0.3); }
     .mnav-install-btn:hover { opacity:0.9; transform:translateY(-1px); }
 
+
+    /* ═══════════════════════════════════
+       PROFESSIONAL CATEGORY GRID
+    ═══════════════════════════════════ */
+    .pro-cat-grid {
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:16px;
+    }
+    @media(max-width:1100px){ .pro-cat-grid { grid-template-columns:repeat(4,1fr); } }
+    @media(max-width:768px) { .pro-cat-grid { grid-template-columns:repeat(3,1fr); gap:10px; } }
+    @media(max-width:480px) { .pro-cat-grid { grid-template-columns:repeat(2,1fr); gap:8px; } }
+
+    .pro-cat-card {
+      position:relative; border-radius:16px; overflow:hidden; cursor:pointer;
+      aspect-ratio:1/1; transition:all 0.35s cubic-bezier(.2,.8,.3,1);
+      border:1.5px solid rgba(201,168,76,0.12);
+      background:var(--dark2);
+      display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
+    }
+    .pro-cat-card:hover {
+      transform:translateY(-6px) scale(1.03);
+      border-color:rgba(201,168,76,0.55);
+      box-shadow:0 20px 50px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.2);
+    }
+    .pro-cat-card .pcc-bg {
+      position:absolute; inset:0;
+      background:linear-gradient(135deg, var(--dark3) 0%, var(--dark2) 100%);
+    }
+    .pro-cat-card .pcc-img {
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+      transition:transform 0.5s cubic-bezier(.2,.8,.3,1);
+    }
+    .pro-cat-card:hover .pcc-img { transform:scale(1.1); }
+    .pro-cat-card .pcc-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.3) 55%, transparent 100%);
+    }
+    .pro-cat-card .pcc-icon {
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-60%);
+      font-size:clamp(2rem,5vw,3rem); line-height:1;
+      filter:drop-shadow(0 4px 16px rgba(0,0,0,0.5));
+      transition:transform 0.3s ease;
+    }
+    .pro-cat-card:hover .pcc-icon { transform:translate(-50%,-65%) scale(1.15); }
+    .pro-cat-card .pcc-info {
+      position:relative; z-index:2; width:100%; padding:12px 12px 14px;
+      text-align:center;
+    }
+    .pro-cat-card .pcc-name {
+      font-family:'Playfair Display',serif; font-size:clamp(0.78rem,2vw,1rem);
+      font-weight:700; color:#fff; margin-bottom:4px; line-height:1.2;
+      text-shadow:0 1px 6px rgba(0,0,0,0.7);
+    }
+    .pro-cat-card .pcc-count {
+      font-size:0.65rem; color:var(--gold); font-weight:600; letter-spacing:0.06em;
+      background:rgba(201,168,76,0.15); border:1px solid rgba(201,168,76,0.3);
+      border-radius:20px; padding:2px 10px; display:inline-block;
+    }
+    .pro-cat-card .pcc-arrow {
+      position:absolute; top:12px; right:12px; z-index:2;
+      width:28px; height:28px; border-radius:50%;
+      background:rgba(201,168,76,0.15); border:1px solid rgba(201,168,76,0.3);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--gold); font-size:0.65rem;
+      opacity:0; transform:scale(0.7);
+      transition:all 0.25s ease;
+    }
+    .pro-cat-card:hover .pcc-arrow { opacity:1; transform:scale(1); }
+
+    /* ═══════════════════════════════════
+       HOME ORDER STATUS WIDGET
+    ═══════════════════════════════════ */
+    #home-order-status-wrap { display:none; }
+    .home-order-status-bar {
+      background:linear-gradient(135deg,rgba(201,168,76,0.08),rgba(201,168,76,0.03));
+      border:1px solid rgba(201,168,76,0.25); border-radius:14px;
+      padding:16px 20px; display:flex; align-items:center; gap:16px;
+      flex-wrap:wrap;
+    }
+    .hosb-icon { font-size:1.5rem; flex-shrink:0; }
+    .hosb-content { flex:1; min-width:0; }
+    .hosb-label { font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-dim); margin-bottom:4px; }
+    .hosb-invoice { font-size:0.82rem; font-weight:700; color:var(--text); margin-bottom:6px; }
+    .hosb-steps { display:flex; align-items:center; gap:0; margin-top:6px; }
+    .hosb-step {
+      display:flex; flex-direction:column; align-items:center; gap:3px; flex:1;
+      position:relative;
+    }
+    .hosb-step::before {
+      content:''; position:absolute; top:12px; left:calc(-50% + 12px); right:calc(50% + 12px);
+      height:2px; background:var(--border);
+    }
+    .hosb-step:first-child::before { display:none; }
+    .hosb-step.done::before { background:var(--gold); }
+    .hosb-step-dot {
+      width:24px; height:24px; border-radius:50%;
+      border:2px solid var(--border); background:var(--dark3);
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.6rem; color:var(--text-dim); flex-shrink:0;
+      transition:all 0.3s;
+    }
+    .hosb-step.done .hosb-step-dot { border-color:var(--gold); background:var(--gold); color:var(--black); }
+    .hosb-step.active .hosb-step-dot { border-color:var(--gold); background:transparent; color:var(--gold); box-shadow:0 0 0 3px rgba(201,168,76,0.15); }
+    .hosb-step-label { font-size:0.55rem; color:var(--text-dim); letter-spacing:0.05em; text-transform:uppercase; white-space:nowrap; }
+    .hosb-step.done .hosb-step-label, .hosb-step.active .hosb-step-label { color:var(--gold); }
+    .hosb-actions { display:flex; gap:8px; flex-shrink:0; }
+    @media(max-width:600px) { .hosb-steps { gap:0; } .hosb-step-label { font-size:0.48rem; } }
+
+    /* ═══════════════════════════════════
+       RECENTLY VIEWED
+    ═══════════════════════════════════ */
+    #section-recently-viewed { display:none; }
+    .rv-scroll {
+      display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory;
+      scroll-behavior:smooth; -webkit-overflow-scrolling:touch; padding-bottom:8px;
+    }
+    .rv-scroll::-webkit-scrollbar { height:4px; }
+    .rv-scroll::-webkit-scrollbar-thumb { background:rgba(201,168,76,0.3); border-radius:4px; }
+    .rv-card {
+      flex:0 0 160px; scroll-snap-align:start; border-radius:12px; overflow:hidden;
+      background:var(--dark2); border:1px solid var(--border); cursor:pointer;
+      transition:all 0.3s ease;
+    }
+    .rv-card:hover { border-color:var(--border-bright); transform:translateY(-4px); box-shadow:0 12px 30px rgba(0,0,0,0.4); }
+    .rv-card-img { width:100%; height:130px; object-fit:cover; display:block; background:var(--dark3); }
+    .rv-card-info { padding:10px; }
+    .rv-card-name { font-size:0.75rem; font-weight:600; color:var(--text); line-height:1.3; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .rv-card-price { font-size:0.82rem; font-weight:700; color:var(--gold); }
+
+    /* ═══════════════════════════════════
+       SPLASH SCREEN
+    ═══════════════════════════════════ */
+    #splash-screen {
+      position:fixed; inset:0; z-index:99999;
+      background:
+        linear-gradient(to bottom, rgba(8,6,2,0.60) 0%, rgba(8,6,2,0.45) 40%, rgba(8,6,2,0.82) 100%),
+        url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=85') center/cover no-repeat;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      text-align:center; padding:40px 24px;
+      transition:opacity 0.8s ease, visibility 0.8s ease;
+    }
+    #splash-screen.hide { opacity:0; visibility:hidden; pointer-events:none; }
+
+    .splash-glow {
+      position:absolute; inset:0; pointer-events:none;
+      background:radial-gradient(ellipse at 50% 40%, rgba(201,168,76,0.18) 0%, transparent 65%);
+    }
+    .splash-logo-wrap {
+      position:relative; z-index:2; margin-bottom:28px;
+      animation:splashLogoIn 0.9s cubic-bezier(.2,.8,.3,1) both;
+    }
+    .splash-monogram {
+      width:96px; height:96px; border-radius:24px;
+      background:rgba(13,10,0,0.75);
+      border:2px solid rgba(201,168,76,0.55);
+      box-shadow:0 0 0 6px rgba(201,168,76,0.08), 0 24px 60px rgba(0,0,0,0.6);
+      display:flex; align-items:center; justify-content:center; margin:0 auto 20px;
+    }
+    .splash-monogram span {
+      font-family:'Playfair Display',serif; font-size:2.4rem; font-weight:700;
+      color:var(--gold); letter-spacing:-1px;
+    }
+    .splash-store-name {
+      font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:700;
+      color:#fff; letter-spacing:0.06em; line-height:1.1; margin-bottom:8px;
+      text-shadow:0 2px 20px rgba(0,0,0,0.6);
+    }
+    .splash-store-name em { color:var(--gold); font-style:italic; }
+    .splash-tagline {
+      font-size:0.85rem; color:rgba(255,255,255,0.6); letter-spacing:0.18em;
+      text-transform:uppercase; font-weight:400; margin-bottom:0;
+      animation:splashFadeUp 1.1s 0.3s cubic-bezier(.2,.8,.3,1) both;
+    }
+    .splash-divider {
+      position:relative; z-index:2; margin:28px auto;
+      display:flex; align-items:center; gap:14px;
+      animation:splashFadeUp 1s 0.5s cubic-bezier(.2,.8,.3,1) both;
+    }
+    .splash-divider-line { width:60px; height:1px; background:rgba(201,168,76,0.35); }
+    .splash-divider-gem { color:var(--gold); font-size:0.8rem; }
+    .splash-loader {
+      position:relative; z-index:2;
+      animation:splashFadeUp 1s 0.7s cubic-bezier(.2,.8,.3,1) both;
+    }
+    .splash-bar {
+      width:160px; height:3px; background:rgba(255,255,255,0.1);
+      border-radius:3px; overflow:hidden; margin:0 auto 14px;
+    }
+    .splash-bar-fill {
+      height:100%; width:0%; background:linear-gradient(90deg, #c9a84c, #e8c97a, #c9a84c);
+      border-radius:3px;
+      animation:splashFill 2.6s 0.5s cubic-bezier(.4,0,.2,1) forwards;
+    }
+    .splash-loading-text {
+      font-size:0.68rem; color:rgba(201,168,76,0.6); letter-spacing:0.22em; text-transform:uppercase;
+    }
+    @keyframes splashLogoIn {
+      from { opacity:0; transform:scale(0.85) translateY(20px); }
+      to   { opacity:1; transform:scale(1) translateY(0); }
+    }
+    @keyframes splashFadeUp {
+      from { opacity:0; transform:translateY(14px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes splashFill {
+      0%   { width:0%; }
+      60%  { width:85%; }
+      85%  { width:95%; }
+      100% { width:100%; }
+    }
+
   </style>
 </head>
 <body>
@@ -1713,6 +1926,25 @@
   </div>
 </div>
 
+<!-- ═══ SPLASH SCREEN ═══ -->
+<div id="splash-screen">
+  <div class="splash-glow"></div>
+  <div class="splash-logo-wrap">
+    <div class="splash-monogram"><span>HS</span></div>
+    <div class="splash-store-name">HUZEE <em>STORE</em></div>
+    <div class="splash-tagline">Pakistan's Premium Shopping</div>
+  </div>
+  <div class="splash-divider">
+    <div class="splash-divider-line"></div>
+    <div class="splash-divider-gem">✦</div>
+    <div class="splash-divider-line"></div>
+  </div>
+  <div class="splash-loader">
+    <div class="splash-bar"><div class="splash-bar-fill"></div></div>
+    <div class="splash-loading-text">Loading...</div>
+  </div>
+</div>
+
 <!-- APP -->
 <div id="app">
 
@@ -1758,6 +1990,21 @@
       </div>
     </div>
     <!-- ═══ LIMITED TIME OFFERS ═══ -->
+    <!-- ═══ HOME ORDER STATUS WIDGET ═══ -->
+    <div class="section-block" id="home-order-status-wrap" style="padding-top:0;margin-top:24px;margin-bottom:0">
+      <div class="home-order-status-bar" id="home-order-status-bar" style="display:none">
+        <div class="hosb-icon">📦</div>
+        <div class="hosb-content">
+          <div class="hosb-label">Your Latest Order</div>
+          <div class="hosb-invoice" id="hosb-invoice">—</div>
+          <div class="hosb-steps" id="hosb-steps"></div>
+        </div>
+        <div class="hosb-actions">
+          <button class="btn btn-dark btn-sm" onclick="navigate('orders')"><i class="fas fa-box"></i> All Orders</button>
+        </div>
+      </div>
+    </div>
+
     <div class="section-block" id="section-lto">
       <div class="lto-header-bar">
         <div>
@@ -1779,9 +2026,24 @@
     </div>
 
     <div class="section-block" id="section-cats">
-      <div class="section-header"><div class="gold-line"></div><h2 class="section-title">Shop by Category</h2><p class="section-subtitle">Browse all categories</p></div>
-      <div class="cat-pills-scroll" id="home-categories-grid"><div style="flex:0 0 auto;padding:40px;color:var(--text-dim)"><i class="fas fa-spinner fa-spin"></i>&nbsp;Loading...</div></div>
+      <div class="section-header" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px">
+        <div><div class="gold-line"></div><h2 class="section-title">Shop by Category</h2><p class="section-subtitle">Browse our collections</p></div>
+        <button class="btn btn-outline btn-sm" onclick="navigate('products')">All Products <i class="fas fa-arrow-right"></i></button>
+      </div>
+      <div class="pro-cat-grid" id="home-categories-grid">
+        <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-dim)"><i class="fas fa-spinner fa-spin"></i>&nbsp;Loading...</div>
+      </div>
     </div>
+
+    <!-- ═══ RECENTLY VIEWED ═══ -->
+    <div class="section-block" id="section-recently-viewed">
+      <div class="section-header" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px">
+        <div><div class="gold-line"></div><h2 class="section-title" style="font-size:1.5rem">Recently Viewed</h2><p class="section-subtitle">Products you browsed</p></div>
+        <button class="btn btn-dark btn-sm" onclick="clearRecentlyViewed()" style="font-size:0.72rem"><i class="fas fa-trash-alt"></i> Clear</button>
+      </div>
+      <div class="rv-scroll" id="rv-scroll-container"></div>
+    </div>
+
     <div class="section-block">
       <div class="section-header"><div class="gold-line"></div><h2 class="section-title">Featured Products</h2><p class="section-subtitle">Top picks for you</p></div>
       <div class="products-grid" id="home-featured-grid"></div>
@@ -3463,7 +3725,7 @@ function navigate(page, data=null) {
     try { history.pushState({ page, data }, '', window.location.href); } catch(e) {}
   }
 
-  if (page === 'home') loadHomeData();
+  if (page === 'home') { loadHomeData(); setTimeout(renderRecentlyViewed, 100); }
   if (page === 'products') loadProductsPage();
   if (page === 'product-detail' && data) loadProductDetail(data);
   if (page === 'wishlist') loadWishlistPage();
@@ -3925,16 +4187,33 @@ async function loadHomeData() {
   }
   const catGrid = document.getElementById('home-categories-grid');
   const _catIcons = {Electronics:'📱',Clothing:'👕',Shoes:'👟',Bags:'👜',Watches:'⌚',Dresses:'👗',Accessories:'💍',Books:'📚',Sports:'⚽',Home:'🏠',Beauty:'💄',Toys:'🎮',Food:'🍔',Jewelry:'💎',Kids:'🧸',Men:'👔',Women:'👗',Perfume:'🌸',Sunglasses:'🕶️',Kurta:'👘',Lawn:'🌿',Chappals:'🩴',Pants:'👖',Shirts:'👔',Handbags:'👜',Makeup:'💋'};
+  const _catBgs = ['linear-gradient(135deg,#1a0f28,#2d1b3d)','linear-gradient(135deg,#0f1a28,#1b2d3d)','linear-gradient(135deg,#1a280f,#2d3d1b)','linear-gradient(135deg,#280f0f,#3d1b1b)','linear-gradient(135deg,#1a1a0f,#2d2d1b)','linear-gradient(135deg,#0f281a,#1b3d2d)','linear-gradient(135deg,#1a0f1a,#2d1b2d)','linear-gradient(135deg,#0f1a1a,#1b2d2d)'];
   catGrid.innerHTML = allCategories.length
-    ? allCategories.map(c => {
-        const icon  = c.icon || _catIcons[c.name] || '🛍️';
+    ? allCategories.map((c, i) => {
+        const icon = c.icon || _catIcons[c.name] || '🛍️';
         const count = allProducts.filter(p=>p.category===c.name).length;
-        const imgEl = c.imageUrl
-          ? `<img class="cp-img" src="${escH(c.imageUrl)}" alt="${escH(c.name)}" loading="lazy" onerror="this.style.visibility='hidden'">`
-          : `<span class="cp-icon">${icon}</span>`;
-        return `<div class="cat-pill" onclick="filterByCategory('${escH(c.name)}')">${imgEl}<span class="cp-name">${escH(c.name)}</span>${count>0?`<span class="cp-count">${count} items</span>`:''}</div>`;
+        const bg = _catBgs[i % _catBgs.length];
+        const imgHTML = c.imageUrl
+          ? `<img class="pcc-img" src="${escH(c.imageUrl)}" alt="${escH(c.name)}" loading="lazy" onerror="this.remove()">`
+          : '';
+        return `<div class="pro-cat-card" onclick="filterByCategory('${escH(c.name)}')">
+          <div class="pcc-bg" style="background:${bg}"></div>
+          ${imgHTML}
+          <div class="pcc-overlay"></div>
+          <div class="pcc-icon">${icon}</div>
+          <div class="pcc-arrow"><i class="fas fa-arrow-right"></i></div>
+          <div class="pcc-info">
+            <div class="pcc-name">${escH(c.name)}</div>
+            ${count>0?`<span class="pcc-count">${count} items</span>`:''}
+          </div>
+        </div>`;
       }).join('')
-    : `<div style="padding:40px;text-align:center;color:var(--text-dim)">No categories yet — add from Admin Panel.</div>`;
+    : `<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--text-dim)">No categories yet — add from Admin Panel.</div>`;
+
+  // Load home order status widget
+  loadHomeOrderStatus();
+  // Load recently viewed
+  renderRecentlyViewed();
 
   const featured = allProducts.filter(p=>p.featured);
   document.getElementById('home-featured-grid').innerHTML = featured.length
@@ -4202,6 +4481,8 @@ document.addEventListener('click', (e) => {
 async function loadProductDetail(productId) {
   let p = allProducts.find(x=>x.id===productId);
   if (!p) p = await db.collection('products').doc(productId).get().then(d=>({id:d.id,...d.data()}));
+  // Track recently viewed
+  trackRecentlyViewed(p);
   const stars = '★'.repeat(Math.round(p.rating||0))+'☆'.repeat(5-Math.round(p.rating||0));
   const inWish = wishlist.includes(p.id);
 
@@ -4766,6 +5047,8 @@ async function loadOrdersPage() {
               <span class="cancel-countdown" data-deadline="${getOrderPlacedTime(o) + 30*60*1000}" style="font-size:0.68rem;font-weight:700;color:#e05252;background:rgba(224,82,82,0.12);border:1px solid rgba(224,82,82,0.3);border-radius:4px;padding:3px 9px;letter-spacing:0.04em"><i class="fas fa-clock" style="margin-right:4px"></i><span class="cancel-time-left">--:--</span> baki</span>
               <button class="btn btn-danger btn-sm" onclick="requestCancelOrder(${oStr})"><i class="fas fa-times"></i> Cancel</button>
             </div>` : (o.status==='pending'||o.status==='processing') ? `<span style="font-size:0.7rem;color:var(--text-dim);align-self:center"><i class="fas fa-ban" style="margin-right:3px;color:var(--danger)"></i>Cancel window khatam</span>` : ''}
+          ${o.status==='cancelled' ? `
+            <button class="btn btn-sm" style="background:rgba(224,82,82,0.1);border:1px solid rgba(224,82,82,0.35);color:#e05252;font-size:0.72rem;padding:6px 14px;font-weight:700" onclick="deleteOrder('${o.id}','${o.invoiceNumber||''}')"><i class="fas fa-trash"></i> Delete</button>` : ''}
           ${o.returnRequestedAt ? `
             <div style="padding:8px 12px;background:${o.returnStatus==='approved'?'rgba(82,183,136,0.1)':o.returnStatus==='rejected'?'rgba(224,82,82,0.08)':'rgba(240,165,0,0.08)'};border:1px solid ${o.returnStatus==='approved'?'rgba(82,183,136,0.4)':o.returnStatus==='rejected'?'rgba(224,82,82,0.3)':'rgba(240,165,0,0.3)'};border-radius:8px;font-size:0.75rem;">
               <div style="font-weight:700;color:${o.returnStatus==='approved'?'#52b788':o.returnStatus==='rejected'?'#e05252':'#f0a500'}">
@@ -6386,10 +6669,104 @@ async function deleteOrder(id, invoiceNo) {
   if (!confirm(`Invoice ${invoiceNo} ko permanently delete karna chahte hain? Yeh action undo nahi ho sakta.`)) return;
   try {
     await db.collection('orders').doc(id).delete();
-    _adminOrders = _adminOrders.filter(o=>o.id!==id);
-    renderAdminOrdersTable(_adminOrders);
+    if (typeof _adminOrders !== 'undefined') {
+      _adminOrders = _adminOrders.filter(o=>o.id!==id);
+      renderAdminOrdersTable(_adminOrders);
+    }
     showToast('Order delete ho gaya!','success');
+    // Reload orders page if user is on it
+    const ordersPage = document.getElementById('orders-list');
+    if (ordersPage && ordersPage.offsetParent !== null) loadOrdersPage();
+    // Reload orders drawer if open
+    const drawer = document.getElementById('orders-drawer');
+    if (drawer && drawer.classList.contains('open')) renderOrdersDrawer();
   } catch(e) { showToast('Delete error: '+e.message,'error'); }
+}
+
+// ─── RECENTLY VIEWED ───
+const RV_KEY = 'huzee_recently_viewed';
+const RV_MAX = 20;
+
+function trackRecentlyViewed(product) {
+  if (!product || !product.id) return;
+  try {
+    let rv = JSON.parse(localStorage.getItem(RV_KEY) || '[]');
+    rv = rv.filter(p => p.id !== product.id);
+    rv.unshift({ id:product.id, name:product.name, price:product.price, imageUrl:product.imageUrl||'', category:product.category||'' });
+    if (rv.length > RV_MAX) rv = rv.slice(0, RV_MAX);
+    localStorage.setItem(RV_KEY, JSON.stringify(rv));
+  } catch(e) {}
+}
+
+function renderRecentlyViewed() {
+  try {
+    const rv = JSON.parse(localStorage.getItem(RV_KEY) || '[]');
+    const section = document.getElementById('section-recently-viewed');
+    const container = document.getElementById('rv-scroll-container');
+    if (!section || !container) return;
+    if (!rv.length) { section.style.display='none'; return; }
+    section.style.display = 'block';
+    container.innerHTML = rv.map(p => `
+      <div class="rv-card" onclick="navigate('product-detail','${p.id}')">
+        <img class="rv-card-img" src="${p.imageUrl||'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200'}" onerror="this.src='https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200'" alt="${(p.name||'').replace(/"/g,'&quot;')}" loading="lazy" />
+        <div class="rv-card-info">
+          <div class="rv-card-name" title="${(p.name||'').replace(/"/g,'&quot;')}">${p.name||''}</div>
+          <div class="rv-card-price">Rs. ${Number(p.price||0).toLocaleString()}</div>
+        </div>
+      </div>`).join('');
+  } catch(e) {}
+}
+
+function clearRecentlyViewed() {
+  localStorage.removeItem(RV_KEY);
+  const section = document.getElementById('section-recently-viewed');
+  if (section) section.style.display = 'none';
+  showToast('Recently viewed clear ho gaya!', 'success');
+}
+
+// ─── HOME ORDER STATUS WIDGET ───
+async function loadHomeOrderStatus() {
+  const wrap = document.getElementById('home-order-status-wrap');
+  const bar = document.getElementById('home-order-status-bar');
+  if (!wrap || !bar) return;
+  if (!currentUser) { wrap.style.display='none'; return; }
+  try {
+    const snap = await db.collection('orders').where('userId','==',currentUser.uid).get();
+    if (snap.empty) { wrap.style.display='none'; return; }
+    const orders = snap.docs.map(d=>({id:d.id,...d.data()}))
+      .sort((a,b)=>{
+        const ta=a.createdAt?.toDate?a.createdAt.toDate().getTime():0;
+        const tb=b.createdAt?.toDate?b.createdAt.toDate().getTime():0;
+        return tb-ta;
+      });
+    const o = orders[0];
+    if (!o) { wrap.style.display='none'; return; }
+    wrap.style.display = 'block';
+    bar.style.display = 'flex';
+
+    const statuses = ['pending','processing','shipped','delivered'];
+    const curIdx = statuses.indexOf(o.status||'pending');
+    const icons = {'pending':'⏳','processing':'⚙️','shipped':'🚚','delivered':'✅','cancelled':'❌'};
+    const labels = {'pending':'Pending','processing':'Processing','shipped':'Shipped','delivered':'Delivered','cancelled':'Cancelled'};
+
+    document.getElementById('hosb-invoice').innerHTML =
+      `<span style="color:var(--gold)">${o.invoiceNumber||''}</span>
+       &nbsp;·&nbsp; <span class="order-status status-${o.status||'pending'}" style="font-size:0.6rem;padding:2px 8px">${(o.status||'pending').toUpperCase()}</span>`;
+
+    const stepsEl = document.getElementById('hosb-steps');
+    if (o.status === 'cancelled') {
+      stepsEl.innerHTML = `<div style="font-size:0.8rem;color:var(--danger);font-weight:600;padding:6px 0"><i class="fas fa-times-circle"></i> Order Cancelled</div>`;
+    } else {
+      stepsEl.innerHTML = statuses.map((s, i) => {
+        const isDone = i < curIdx;
+        const isActive = i === curIdx;
+        return `<div class="hosb-step ${isDone?'done':''} ${isActive?'active':''}">
+          <div class="hosb-step-dot">${isDone?'✓':icons[s]||''}</div>
+          <div class="hosb-step-label">${labels[s]||s}</div>
+        </div>`;
+      }).join('');
+    }
+  } catch(e) { const wrap=document.getElementById('home-order-status-wrap'); if(wrap) wrap.style.display='none'; }
 }
 
 // Auto-cleanup: delete cancelled orders older than 1 month
@@ -7149,6 +7526,20 @@ window.addEventListener('appinstalled', () => {
     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
     bar.style.width = (maxScroll > 0 ? (scrolled / maxScroll * 100) : 0) + '%';
   }, { passive: true });
+})();
+
+// ═══════════════════════════════════
+// SPLASH SCREEN — 3 second hide
+// ═══════════════════════════════════
+(function initSplash() {
+  const splash = document.getElementById('splash-screen');
+  if (!splash) return;
+  // Hide after exactly 3 seconds with smooth fade
+  setTimeout(() => {
+    splash.classList.add('hide');
+    // Remove from DOM after transition ends
+    setTimeout(() => { splash.remove(); }, 900);
+  }, 3000);
 })();
 
 // ═══════════════════════════════════
